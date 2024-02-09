@@ -64,7 +64,7 @@
     </dependencies>
 
     <build>
-	<finalName>${project.name}-${git.commit.hash}</finalName>
+        <finalName>${project.name}-${project.version}</finalName>
         <defaultGoal>clean install</defaultGoal>
 
         <resources>
