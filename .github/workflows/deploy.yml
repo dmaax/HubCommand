@@ -58,7 +58,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./target/HubCommand-${{ steps.extract_version.outputs.version }}-b${{ steps.read_commit_hash.outputs.commit_hash }}.jar  # Adjust to your JAR file path
+        asset_path: ./target/HubCommand-${{ steps.extract_version.outputs.version }}.jar  # Adjust to your JAR file path
         asset_name: HubCommand-${{ steps.extract_version.outputs.version }}-b${{ steps.read_commit_hash.outputs.commit_hash }}.jar
         asset_content_type: application/java-archive
 
