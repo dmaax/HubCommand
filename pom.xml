@@ -82,7 +82,31 @@
             </resource>
         </resources>
 
-        <plugins>
+	<plugins>
+            <!-- Get the git commit hash -->
+	    <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>get-commit-hash</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>git</executable>
+                            <arguments>
+                                <argument>rev-parse</argument>
+                                <argument>--short</argument>
+                                <argument>HEAD</argument>
+                            </arguments>
+                            <outputProperty>git.commit.hash</outputProperty>
+                        </configuration>
+                    </execution>
+                </executions>
+      </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
