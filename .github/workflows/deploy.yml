@@ -33,8 +33,12 @@ jobs:
       id: extract_version
       run: echo "::set-output name=version::$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)"
 
+    - name: Read Commit Hash from Maven Build Output
+      id: read_commit_hash
+      run: echo "::set-output name=commit_hash::$(mvn help:evaluate -Dexpression=git.commit.hash -q -DforceStdout)"
+
     - name: Build with Maven
-      run: mvn -Dgit.commit.hash=$(git rev-parse HEAD) -B package --file pom.xml
+      run: mvn -B package --file pom.xml
 
     - name: Create Release
       id: create_release
@@ -55,6 +59,7 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./target/HubCommand*.jar  # Adjust to your JAR file path
+        asset_name: HubCommand-${{ steps.extract_version.outputs.version }}-b${{ steps.read_commit_hash.outputs.commit_hash }}.jar
         asset_content_type: application/java-archive
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
